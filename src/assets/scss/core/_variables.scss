@@ -1,0 +1,64 @@
+// FONTS
+$font-family-default: Roboto, sans-serif;
+$font-family-title: Exo, sans-serif;
+$fz-default: 1.4rem;
+$fz-h4: 1.7rem;
+$fz-h3: 2rem;
+$fz-h2: 2.3rem;
+$fz-h1: 2.6rem;
+
+// colors
+$color-orange-meduim: orange; // orange
+$color-gray-meduim: rgb(129, 129, 129);
+$color-gray-dark: darken($color-gray-meduim, 50%);
+$color-gray-light: lighten($color-gray-meduim, 40%);
+$color-blue-dark: darken(blue, 75%);
+$color-red-dark: darken(red, 75%);
+
+// color branding 
+$color-brand-primary: $color-orange-meduim;
+$color-brand-secondary: $color-blue-dark;
+$color-brand-third: $color-red-dark;
+
+// borders :
+$border-default: 1px solid $color-gray-meduim;
+$border-blue-dark: 1px solid $color-blue-dark;
+$border-white: 1px solid white;
+
+// shadow :
+$shadow: 0 0 15px black;
+$shadow-light: 0 0 7px rgba($color-blue-dark, 0.2);
+$shadow-light: 0px 9px 4px -7px #ccc, -50px -50px 0px -30px rgba(0, 0, 0, 0);
+
+// spacing
+$gutter-base: 30px; // var(--gutter-base)
+$gutter-half: $gutter-base / 2; // var(--gutter-half)
+$raduis: 5px;
+$header-hight: 70px;
+$footer-hight: 220px;
+
+/*----- RESPONSIVE ------*/
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+// Grid containers  \\ ©  Y;O;U;N;E;S  C;H;R;A;K  //
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 991px,
+  xl: 1200px,
+);
+
+// MEDIA QUERY
+$bp-min-sm: "only screen and (min-width: #{map-get($grid-breakpoints, 'sm')})"; // min 576px
+$bp-min-md: "only screen and (min-width: #{map-get($grid-breakpoints, 'md')})"; // min 768px
+$bp-min-lg: "only screen and (min-width: #{map-get($grid-breakpoints, 'lg')})"; // min 992px
+$bp-min-xl: "only screen and (min-width: #{map-get($grid-breakpoints, 'xl')})"; // min 1200px
+$bp-max-sm: "only screen and (max-width: #{map-get($grid-breakpoints, 'md')-1})"; // max 767px
+$bp-max-md: "only screen and (max-width: #{map-get($grid-breakpoints, 'lg')-1})"; // max 991px
+$bp-max-lg: "only screen and (max-width: #{map-get($grid-breakpoints, 'xl')-1})"; // max 1199px
