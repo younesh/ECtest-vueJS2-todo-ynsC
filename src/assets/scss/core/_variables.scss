@@ -14,6 +14,9 @@ $color-gray-dark: darken($color-gray-meduim, 50%);
 $color-gray-light: lighten($color-gray-meduim, 40%);
 $color-blue-dark: darken(blue, 75%);
 $color-red-dark: darken(red, 75%);
+$color-green-meduim : rgb(49, 153, 96);
+$color-green-light : lighten($color-green-meduim, 55%);
+$color-green-meduim : darken($color-green-meduim, 55%);
 
 // color branding 
 $color-brand-primary: $color-orange-meduim;
@@ -21,7 +24,7 @@ $color-brand-secondary: $color-blue-dark;
 $color-brand-third: $color-red-dark;
 
 // borders :
-$border-default: 1px solid $color-gray-meduim;
+$border-default: 1px solid $color-gray-light;
 $border-blue-dark: 1px solid $color-blue-dark;
 $border-white: 1px solid white;
 

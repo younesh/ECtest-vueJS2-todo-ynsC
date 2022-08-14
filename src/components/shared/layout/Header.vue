@@ -4,7 +4,7 @@
       <router-link to="/"
         ><img
           alt="Vue logo"
-          src="@/assets/images/logo.png"
+          src="@/assets/images/logo.svg"
           class="header__logo"
       /></router-link>
       <MainMenu />
@@ -23,7 +23,7 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  background-color: $color-gray-light;
+  background-color: $color-green-light;
   padding: $gutter-half 0px;
   box-shadow: $shadow-light;
   min-height: $header-hight;
@@ -35,7 +35,7 @@ export default {
   }
 
   &__logo {
-    width: 40px;
+    width: 100px;
   }
 }
 </style>

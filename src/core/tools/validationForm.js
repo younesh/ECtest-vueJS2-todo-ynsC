@@ -21,29 +21,27 @@ export const validationForm = (config, formField) => {
     config[field].isValide = true;
     config[field].errorMessage = "";
 
-    // verifier le required
+    // required check
     if (config[field].isRequired) {
       if (formField[field] === "") {
         config[field].isValide = false;
-        config[field].errorMessage = "le champ est obligatoire";
+        config[field].errorMessage = "the field is required";
         isValidForm = false;
         return; // ici return ds le forEach c'est comme continue pour un boucle for normal !
       }
     }
-    // verifier si format du type  mail est ok
+    // mail format check
     if (config[field].type === "mail") {
       if (!isMailFormat(formField[field])) {
         config[field].isValide = false;
-        config[field].errorMessage = "Format du mail est invalid";
+        config[field].errorMessage = "Email format is invalid";
         isValidForm = false;
         return;
       }
     }
-    // verifier le numeric format
+    // number  format check
 
-    // verifier le URL format ...
-
-    // verifier le URL format ...
+    // URL format check
   });
 
   return isValidForm;
