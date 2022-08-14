@@ -1,20 +1,15 @@
 <template>
   <main class="home page">
     <b-container>
-      <h2>Home page</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, maiores
-        aspernatur aperiam excepturi eum minima, tempora velit voluptates rerum
-        ea explicabo provident labore corrupti, consequatur illo deleniti
-        veritatis perspiciatis voluptate?
-      </p>
+      <IndexTodo />
     </b-container>
   </main>
 </template>
 
 <script>
+import IndexTodo from "@/components/modules/todos/IndexTodos.vue";
 export default {
-  components: {},
+  components: { IndexTodo },
 };
 
 // to emplement TS
