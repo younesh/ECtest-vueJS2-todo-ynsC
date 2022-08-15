@@ -1,6 +1,6 @@
 <template>
   <b-form class="add-todo">
-    <b-form-group label="titre todo" for="inputTitle">
+    <b-form-group label="Title" for="inputTitle">
       <b-form-input
         id="inputTitle"
         type="text"
@@ -14,7 +14,7 @@
       />
     </b-form-group>
 
-    <b-form-group label="description todo" for="inputDescription">
+    <b-form-group label="description" for="inputDescription">
       <b-form-input
         id="inputDescription"
         type="text"
@@ -30,7 +30,7 @@
       />
     </b-form-group>
 
-    <b-form-group label="Date cible" for="inputDateTarget">
+    <b-form-group label="Target date" for="inputDateTarget">
       <b-form-input
         id="inputDateTarget"
         type="datetime-local"
@@ -45,22 +45,36 @@
       />
     </b-form-group>
 
-    <b-form-group
-      label="status de la tache"
-      for="inputCompleted"
-      class="d-flex"
-    >
+    <b-form-group label="task status" for="inputCompleted" class="d-flex">
       <b-form-checkbox
         id="inputCompleted"
         v-model="todo.completed"
         name="inputCompleted"
-        unchecked-value="not_accepted"
+        :unchecked-value="false"
       >
-        tache terminé ?!
+        task done
       </b-form-checkbox>
     </b-form-group>
-
-    <b-button @click="newTodo(todo)"> ajouter todo </b-button>
+    <div class="d-flex justify-content-end">
+      <b-button
+        class="mr-3"
+        variant="success"
+        @click="newTodo(todo)"
+        v-if="!isEditMode"
+      >
+        add todo
+      </b-button>
+      <b-button
+        class="mr-3"
+        variant="success"
+        @click="editingCurrentTodo(todo)"
+        :disabled="!isTodoFormChanged"
+        v-else
+      >
+        update current todo
+      </b-button>
+      <b-button variant="primary" @click="$emit('hideModal')"> close </b-button>
+    </div>
   </b-form>
 </template>
 
@@ -110,8 +124,14 @@ export default {
       },
     };
   },
+  props: {
+    isEditMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   methods: {
-    ...mapActions("todos", ["fetchTodos", "addTodo"]),
+    ...mapActions("todos", ["fetchTodos", "addTodo", "updateTodo"]),
     async newTodo(todo) {
       if (!validationForm(this.formFieldConfig, this.todo)) {
         return;
@@ -120,6 +140,29 @@ export default {
       console.log(todo);
       await this.fetchTodos();
       this.resetForm();
+      this.$emit("hideModal");
+    },
+    async editingCurrentTodo(todo) {
+      // todo comfirmation of editing
+      if (!validationForm(this.formFieldConfig, this.todo)) {
+        return;
+      }
+      this.$bvModal
+        .msgBoxConfirm(
+          `are you sure you want to modify this task? \n ID : ${todo.id} `
+        )
+        .then(async (value) => {
+          if (value) {
+            await this.updateTodo(todo);
+            await this.fetchTodos();
+            await this.$bvModal.msgBoxOk(`update completed successfully !!`);
+            this.$emit("hideModal");
+          }
+        })
+        .catch((err) => {
+          // An error occurred
+          throw (" error in @editingCurrentTodo ", err);
+        });
     },
     resetForm() {
       this.todo = {
@@ -132,7 +175,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("todos", ["allTodos"]),
+    ...mapGetters("todos", ["allTodos", "getCurrentTodo"]),
+    isTodoFormChanged() {
+      return JSON.stringify(this.todo) !== JSON.stringify(this.getCurrentTodo);
+    },
+  },
+  created() {
+    if (this.isEditMode) {
+      this.todo = { ...this.getCurrentTodo };
+    }
   },
 };
 </script>

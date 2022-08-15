@@ -6,7 +6,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
-  /* updateDoc,*/
+  updateDoc,
 } from "firebase/firestore";
 const isFirebaseSource = true;
 // const API_TODOS = "https://todos-3d6eb-default-rtdb.europe-west1.firebasedatabase.app/todos";
@@ -17,12 +17,42 @@ const todosCollectionRef = collection(db, "todos"); // from firebase !!
 
 const state = {
   todos: [],
+  currentTodo: null,
+  filter: {
+    statusTodo: "both",
+    keyword: null, // null
+  },
 };
 
 // GETTERS
 const getters = {
   allTodos(state) {
-    return state.todos;
+    if (state.filter.keyword === null) {
+      if (state.filter.statusTodo === "both") {
+        return state.todos;
+      } else {
+        let checkCompleted = state.filter.statusTodo === "done" ? true : false;
+        return state.todos.filter((todo) => todo.completed === checkCompleted);
+      }
+    } else {
+      if (state.filter.statusTodo === "both") {
+        return state.todos.filter((todo) =>
+          todo.title.toLowerCase().includes(state.filter.keyword.toLowerCase())
+        );
+      } else {
+        let checkCompleted = state.filter.statusTodo === "done" ? true : false;
+        return state.todos.filter(
+          (todo) =>
+            todo.title
+              .toLowerCase()
+              .includes(state.filter.keyword.toLowerCase()) &&
+            todo.completed === checkCompleted
+        );
+      }
+    }
+  },
+  getCurrentTodo(state) {
+    return state.currentTodo;
   },
 };
 
@@ -76,11 +106,34 @@ const actions = {
         await axios.delete(API_TODOS + "/" + todo.id);
       }
     } catch (e) {
-      console.error("error @store/deleteTodos ");
+      console.error("error @store/Action/deleteTodos ");
       console.error(e);
       throw e;
     }
   },
+  async updateTodo(NULL, editedTodo) {
+    try {
+      if (isFirebaseSource) {
+        // en selectionne le doc a modifier ds firebse
+        const todoDoc = doc(db, "todos", editedTodo.id);
+        await updateDoc(todoDoc, editedTodo); // maj on firebase
+        // commit(UPDATE_MOVIE, updatedMovie);
+      }
+    } catch (e) {
+      console.error("error @store/Action/updateTodo ");
+      console.error(e);
+
+      throw e;
+    }
+  },
+  async setCurrentTodo({ commit }, currentTodo) {
+    commit("setCurrentTodo", currentTodo);
+  },
+
+  async setFilter({ commit }, filter) {
+    commit("setFilter", filter);
+  },
+
   /*
   async Actions({ commit }) {
     try {
@@ -98,6 +151,12 @@ const actions = {
 const mutations = {
   setTodos(state, payload) {
     state.todos = payload;
+  },
+  setCurrentTodo(state, payload) {
+    state.currentTodo = payload;
+  },
+  setFilter(state, payload) {
+    state.filter = payload;
   },
 };
 

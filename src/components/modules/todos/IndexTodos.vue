@@ -4,7 +4,7 @@
 
     <b-button variant="success" v-b-modal.modal_creation> Add todo </b-button>
 
-    <hr />
+    <FilterBar />
     <b-row>
       <template v-for="todo in allTodos">
         <b-col md="6" :key="todo.id">
@@ -17,16 +17,21 @@
       </template>
     </b-row>
 
-    <b-modal id="modal_creation" title="Create a new todo " hide-footer>
-      <!--
-
-      @ok="validationModal"
-      @hidden="resetModal"
-      -->
-      <FormAddEditTodo />
+    <b-modal
+      ref="modal_form"
+      id="modal_creation"
+      title="Create a new todo "
+      hide-footer
+    >
+      <FormAddEditTodo @hideModal="closeModal" />
     </b-modal>
-    <b-modal id="modal_edit" title="Editing a todo" hide-footer>
-      <FormAddEditTodo />
+    <b-modal
+      ref="modal_form"
+      id="modal_edit"
+      title="Editing a todo"
+      hide-footer
+    >
+      <FormAddEditTodo :isEditMode="true" @hideModal="closeModal" />
     </b-modal>
   </div>
 </template>
@@ -35,13 +40,14 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import FormAddEditTodo from "@/components/modules/todos/FormAddEditTodo.vue";
 import TodoCard from "@/components/modules/todos/TodoCard.vue";
+import FilterBar from "@/components/modules/todos/FilterBar.vue";
 export default {
   data() {
     return {};
   },
-  components: { FormAddEditTodo, TodoCard },
+  components: { FormAddEditTodo, TodoCard, FilterBar },
   methods: {
-    ...mapActions("todos", ["fetchTodos", "deleteTodos"]),
+    ...mapActions("todos", ["fetchTodos", "deleteTodos", "setCurrentTodo"]),
     removeTodo(todo) {
       this.$bvModal
         .msgBoxConfirm(
@@ -65,7 +71,10 @@ export default {
       console.log(" resetModal >> ");
     },
     edit(todo) {
-      console.log("todo >> ", todo);
+      this.setCurrentTodo(todo);
+    },
+    closeModal() {
+      this.$refs["modal_form"].hide();
     },
   },
   /* --- computed ---- */

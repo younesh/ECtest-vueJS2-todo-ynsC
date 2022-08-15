@@ -9,6 +9,7 @@ $fz-h1: 2.6rem;
 
 // colors
 $color-orange-meduim: orange; // orange
+$color-orange-light: lighten($color-orange-meduim, 40%);// orange
 $color-gray-meduim: rgb(129, 129, 129);
 $color-gray-dark: darken($color-gray-meduim, 50%);
 $color-gray-light: lighten($color-gray-meduim, 40%);
