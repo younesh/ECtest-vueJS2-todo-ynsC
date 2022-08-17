@@ -14,7 +14,7 @@
       />
     </b-form-group>
 
-    <b-form-group label="Description *" for="inputDescription">
+    <b-form-group label="Description" for="inputDescription">
       <b-form-textarea
         id="inputDescription"
         type="text"

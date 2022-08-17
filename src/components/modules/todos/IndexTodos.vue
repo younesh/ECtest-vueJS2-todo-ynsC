@@ -42,6 +42,7 @@ import FormAddEditTodo from "@/components/modules/todos/FormAddEditTodo.vue";
 import TodoCard from "@/components/modules/todos/TodoCard.vue";
 import FilterBar from "@/components/modules/todos/FilterBar.vue";
 export default {
+  name: "IndexTodos",
   data() {
     return {};
   },
@@ -84,12 +85,13 @@ export default {
   },
   /* --- LIFE CYCLE --- */
   watch: {},
-  created() {
-    this.fetchTodos();
-    console.log("@cycle/created");
+  async created() {
+    //  await this.fetchTodos();
+    // console.log("@cycle/created");
   },
-  mounted() {
-    console.log("@cycle/mounted");
+  async mounted() {
+    await this.fetchTodos();
+    console.log("@cycle/mounted of indexTodo.vue");
   },
   updated() {
     // this.dataTodos = this.todos;
