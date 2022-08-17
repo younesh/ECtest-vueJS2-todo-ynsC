@@ -1,6 +1,6 @@
 <template>
   <b-form class="add-todo">
-    <b-form-group label="Title" for="inputTitle">
+    <b-form-group label="Title *" for="inputTitle">
       <b-form-input
         id="inputTitle"
         type="text"
@@ -14,23 +14,24 @@
       />
     </b-form-group>
 
-    <b-form-group label="description" for="inputDescription">
-      <b-form-input
+    <b-form-group label="Description *" for="inputDescription">
+      <b-form-textarea
         id="inputDescription"
         type="text"
+        rows="6"
         v-model="todo.description"
         :class="{
           'form-control--error': !formFieldConfig['description'].isValide,
         }"
         @input="formFieldConfig['description'].isValide = true"
-      />
+      ></b-form-textarea>
       <b-form-invalid-feedback
         v-html="formFieldConfig['description'].errorMessage"
         :state="formFieldConfig['description'].isValide"
       />
     </b-form-group>
 
-    <b-form-group label="Target date" for="inputDateTarget">
+    <b-form-group label="Target date *" for="inputDateTarget">
       <b-form-input
         id="inputDateTarget"
         type="datetime-local"
@@ -39,6 +40,7 @@
           'form-control--error': !formFieldConfig['dateTarget'].isValide,
         }"
       />
+
       <b-form-invalid-feedback
         v-html="formFieldConfig['dateTarget'].errorMessage"
         :state="formFieldConfig['dateTarget'].isValide"
@@ -73,7 +75,7 @@
       >
         update current todo
       </b-button>
-      <b-button variant="primary" @click="$emit('hideModal')"> close </b-button>
+      <b-button variant="danger" @click="$emit('hideModal')"> close </b-button>
     </div>
   </b-form>
 </template>
@@ -109,7 +111,7 @@ export default {
           errorMessage: "",
         },
         description: {
-          isRequired: true,
+          isRequired: false,
           type: "text",
           isValide: true,
           errorMessage: "",

@@ -34,8 +34,16 @@ yarn lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### lancer le server local des données test ( todo )
+### launch the local dev data server api json to work localy ( todo )
 
 ```
 json-server --watch src/assets/mocks/todos.json --port 5151
+```
+
+and .env.exemple.local to .env.local and it s ok , you can run app in local
+
+### to launch the local test data server, to do jest test ( todo )
+
+```
+json-server --watch src/assets/mocks/todos.json --port 6161
 ```

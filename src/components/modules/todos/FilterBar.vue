@@ -40,7 +40,6 @@ export default {
   watch: {
     filter: {
       handler(val) {
-        console.log(" the filter object was changed deeply : ", val);
         this.setFilter(val);
       },
       deep: true,

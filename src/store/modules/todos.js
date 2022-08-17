@@ -8,9 +8,8 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-const isFirebaseSource = true;
-// const API_TODOS = "https://todos-3d6eb-default-rtdb.europe-west1.firebasedatabase.app/todos";
-const API_TODOS = "http://localhost:5151/todos";
+const isFirebaseSource = process.env.VUE_APP_MODE === "prod";
+const API_TODOS = process.env.VUE_APP_LOCAL_API;
 // json-server --watch src/assets/mocks/todos.json --port 5151
 
 const todosCollectionRef = collection(db, "todos"); // from firebase !!
@@ -118,6 +117,8 @@ const actions = {
         const todoDoc = doc(db, "todos", editedTodo.id);
         await updateDoc(todoDoc, editedTodo); // maj on firebase
         // commit(UPDATE_MOVIE, updatedMovie);
+      } else {
+        await axios.put(API_TODOS + "/" + editedTodo.id, editedTodo);
       }
     } catch (e) {
       console.error("error @store/Action/updateTodo ");
