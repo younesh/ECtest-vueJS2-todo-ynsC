@@ -6,7 +6,6 @@ import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 describe("IndexTodos.vue testing :  ", () => {
   let store;
   let wrapper;
-  // let firstMovie;
   const localVue = createLocalVue();
   beforeEach(async () => {
     localVue.use(Vuex);
@@ -25,18 +24,10 @@ describe("IndexTodos.vue testing :  ", () => {
   });
 
   test("TEST-1 : test if jest work !! for  IndexTodos cpt ", async () => {
-    // mount cpt
-
-    // const inputMinute = wrapper.find("#minute");
-
-    // search input title
-    // tester si la modification ce passe
     expect(1).toEqual(1);
   });
 
   test("TEST-2 : test if we have liste todo ", async () => {
-    // console.log("@>>>> test output log !!! ");
-    // tester si la modification ce passe
     console.log("todos.state.todos.length >> " + todos.state.todos.length);
     let domTodo = await wrapper.find(".todos");
 

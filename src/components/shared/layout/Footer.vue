@@ -2,37 +2,23 @@
   <div class="footer">
     <b-container class="footer_wrapper">
       <b-row>
-        <b-col>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            cupiditate eius similique nam impedit debitis, corrupti laboriosam
-            quo amet excepturi laudantium deleniti. Voluptatibus iste quod
-            molestiae ipsum in rem totam.
-          </p>
-        </b-col>
-        <b-col>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            cupiditate eius similique nam impedit debitis, corrupti laboriosam
-            quo amet excepturi laudantium deleniti. Voluptatibus iste quod
-            molestiae ipsum in rem totam.
-          </p>
-        </b-col>
-        <b-col>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            cupiditate eius similique nam impedit debitis, corrupti laboriosam
-            quo amet excepturi laudantium deleniti. Voluptatibus iste quod
-            molestiae ipsum in rem totam.
-          </p>
-        </b-col>
+        <b-col> </b-col>
+        <b-col> source : {{ getSourceData }}</b-col>
+        <b-col> </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
-export default {};
+import { isFirebaseSource } from "@/store/modules/todos.js";
+export default {
+  computed: {
+    getSourceData() {
+      return isFirebaseSource ? "firebase" : "local";
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

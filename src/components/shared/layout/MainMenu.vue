@@ -51,7 +51,6 @@ export default {
     };
   },
   methods: {
-    // isMobileMenuOpen != isMobileMenuOpen
     toggleMainMenu() {
       this.isMobileMenuOpen = !this.isMobileMenuOpen;
       console.log("this.isMobileMenuOpen >> ", this.isMobileMenuOpen);

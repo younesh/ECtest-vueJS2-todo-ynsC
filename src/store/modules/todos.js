@@ -8,7 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-const isFirebaseSource = process.env.VUE_APP_MODE === "prod";
+export const isFirebaseSource = process.env.VUE_APP_MODE === "prod";
 const API_TODOS = process.env.VUE_APP_LOCAL_API;
 // json-server --watch src/assets/mocks/todos.json --port 5151
 
@@ -113,10 +113,9 @@ const actions = {
   async updateTodo(NULL, editedTodo) {
     try {
       if (isFirebaseSource) {
-        // en selectionne le doc a modifier ds firebse
+        // choosing the doc to modify
         const todoDoc = doc(db, "todos", editedTodo.id);
         await updateDoc(todoDoc, editedTodo); // maj on firebase
-        // commit(UPDATE_MOVIE, updatedMovie);
       } else {
         await axios.put(API_TODOS + "/" + editedTodo.id, editedTodo);
       }

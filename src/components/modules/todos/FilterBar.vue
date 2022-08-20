@@ -7,7 +7,7 @@
       <b-form-input
         id="inputTitle"
         type="text"
-        placeholder="keyword"
+        placeholder="keyword in title"
         v-model="filter.keyword"
       />
     </b-form-group>
@@ -56,7 +56,6 @@ export default {
   padding: 10px 0px;
   margin: 10px 0px;
 
-  //
   .form-group {
     input[type="text"] {
       position: relative;

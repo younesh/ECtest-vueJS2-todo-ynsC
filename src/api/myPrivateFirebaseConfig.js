@@ -8,3 +8,23 @@ export const myFirebaseConfig = {
   messagingSenderId: process.env.messagingSenderId,
   appId: process.env.appId,
 };
+
+/* const {
+  apiKey,
+  authDomain,
+  databaseURL,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+} = process.env;
+
+export const myFirebaseConfig = {
+  apiKey,
+  authDomain,
+  databaseURL,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+}; */

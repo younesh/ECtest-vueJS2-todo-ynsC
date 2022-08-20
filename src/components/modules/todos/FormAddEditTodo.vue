@@ -1,5 +1,11 @@
 <template>
   <b-form class="add-todo">
+    <div
+      v-if="isloading"
+      class="d-flex justify-content-center align-items-center mb-5"
+    >
+      <b-spinner type="grow" variant="primary" label="Spinning" />
+    </div>
     <b-form-group label="Title *" for="inputTitle">
       <b-form-input
         id="inputTitle"
@@ -88,6 +94,7 @@ export default {
   name: "FormAddTodo",
   data() {
     return {
+      isloading: false,
       todo: {
         title: "",
         description: "",
@@ -155,9 +162,11 @@ export default {
         )
         .then(async (value) => {
           if (value) {
+            this.isloading = true;
             await this.updateTodo(todo);
             await this.fetchTodos();
             await this.$bvModal.msgBoxOk(`update completed successfully !!`);
+            this.isloading = false;
             this.$emit("hideModal");
           }
         })

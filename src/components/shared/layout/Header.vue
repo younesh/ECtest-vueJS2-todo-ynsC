@@ -4,7 +4,7 @@
       <router-link to="/"
         ><img
           alt="Vue logo"
-          src="@/assets/images/logo.svg"
+          src="@/assets/images/logo.png"
           class="header__logo"
       /></router-link>
       <MainMenu />
@@ -35,7 +35,7 @@ export default {
   }
 
   &__logo {
-    width: 100px;
+    width: 40px;
   }
 }
 </style>

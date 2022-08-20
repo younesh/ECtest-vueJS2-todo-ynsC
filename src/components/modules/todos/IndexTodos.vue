@@ -5,6 +5,12 @@
     <b-button variant="success" v-b-modal.modal_creation> Add todo </b-button>
 
     <FilterBar />
+    <div
+      v-if="isloading"
+      class="d-flex justify-content-center align-items-center mb-5"
+    >
+      <b-spinner type="grow" variant="primary" label="Spinning" />
+    </div>
     <b-row>
       <template v-for="todo in allTodos">
         <b-col md="6" :key="todo.id">
@@ -44,7 +50,9 @@ import FilterBar from "@/components/modules/todos/FilterBar.vue";
 export default {
   name: "IndexTodos",
   data() {
-    return {};
+    return {
+      isloading: false,
+    };
   },
   components: { FormAddEditTodo, TodoCard, FilterBar },
   methods: {
@@ -52,7 +60,7 @@ export default {
     removeTodo(todo) {
       this.$bvModal
         .msgBoxConfirm(
-          `est vous sur de vouloir supprimer cette tache ? \n ID : ${todo.id} `
+          `are you sure you want to remove this task ? \n ID : ${todo.id} `
         )
         .then(async (value) => {
           if (value) {
@@ -61,15 +69,8 @@ export default {
           }
         })
         .catch((err) => {
-          // An error occurred
-          throw (" error in @removeMovie ", err);
+          throw (" error in  removeTodo ", err);
         });
-    },
-    validationModal() {
-      console.log(" validationModal >> ");
-    },
-    resetModal() {
-      console.log(" resetModal >> ");
     },
     edit(todo) {
       this.setCurrentTodo(todo);
@@ -85,16 +86,10 @@ export default {
   },
   /* --- LIFE CYCLE --- */
   watch: {},
-  async created() {
-    //  await this.fetchTodos();
-    // console.log("@cycle/created");
-  },
   async mounted() {
+    this.isloading = true;
     await this.fetchTodos();
-    console.log("@cycle/mounted of indexTodo.vue");
-  },
-  updated() {
-    // this.dataTodos = this.todos;
+    this.isloading = false;
   },
 };
 </script>
