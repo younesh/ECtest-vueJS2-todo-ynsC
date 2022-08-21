@@ -12,18 +12,38 @@
     >
       edit
     </b-button>
-    <b-button variant="danger" @click="$emit('deleting')"> delete </b-button>
+    <b-button variant="danger" class="mr-2" @click="$emit('deleting')">
+      delete
+    </b-button>
+    <b-button @click="changeStatusTodo(todo)" :data-completed="todo.completed">
+      <span v-if="isloading">
+        <b-spinner type="grow" label="Spinning" />
+      </span>
+
+      <span v-else>
+        {{ todo.completed ? "Make it undone ?" : "Make it done ?" }}
+      </span>
+    </b-button>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: {
     todo: {
+      isloading: false,
       type: Object,
     },
   },
-  methods: {},
+  methods: {
+    ...mapActions("todos", ["setStatusTodo", "fetchTodos"]),
+    async changeStatusTodo(todo) {
+      console.log("test ");
+      await this.setStatusTodo(todo);
+      await this.fetchTodos();
+    },
+  },
   computed: {
     // ...mapGetters("todos", ["getCurrentTodo"]),
   },

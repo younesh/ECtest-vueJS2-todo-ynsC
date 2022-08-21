@@ -129,9 +129,26 @@ const actions = {
   async setCurrentTodo({ commit }, currentTodo) {
     commit("setCurrentTodo", currentTodo);
   },
-
   async setFilter({ commit }, filter) {
     commit("setFilter", filter);
+  },
+
+  async setStatusTodo(NULL, editedTodo) {
+    try {
+      const tmpTodo = { ...editedTodo, completed: !editedTodo.completed };
+      if (isFirebaseSource) {
+        // choosing the doc to modify
+        const todoDoc = doc(db, "todos", tmpTodo.id);
+        await updateDoc(todoDoc, tmpTodo); // maj on firebase
+      } else {
+        await axios.put(API_TODOS + "/" + tmpTodo.id, tmpTodo);
+      }
+    } catch (e) {
+      console.error("error @store/Action/setStatusTodo ");
+      console.error(e);
+
+      throw e;
+    }
   },
 
   /*

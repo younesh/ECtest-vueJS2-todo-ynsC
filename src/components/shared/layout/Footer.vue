@@ -3,7 +3,7 @@
     <b-container class="footer_wrapper">
       <b-row>
         <b-col> </b-col>
-        <b-col> source : {{ getSourceData }}</b-col>
+        <b-col> data source : {{ getSourceData }}</b-col>
         <b-col> </b-col>
       </b-row>
     </b-container>
@@ -15,7 +15,7 @@ import { isFirebaseSource } from "@/store/modules/todos.js";
 export default {
   computed: {
     getSourceData() {
-      return isFirebaseSource ? "firebase" : "local";
+      return isFirebaseSource ? "firebase" : "local json mock";
     },
   },
 };
