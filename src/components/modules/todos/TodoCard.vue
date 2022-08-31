@@ -30,9 +30,13 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      isloading: false,
+    };
+  },
   props: {
     todo: {
-      isloading: false,
       type: Object,
     },
   },

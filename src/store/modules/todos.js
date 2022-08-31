@@ -19,36 +19,29 @@ const state = {
   currentTodo: null,
   filter: {
     statusTodo: "both",
-    keyword: null, // null
+    keyword: null,
   },
 };
 
 // GETTERS
 const getters = {
   allTodos(state) {
-    if (state.filter.keyword === null) {
-      if (state.filter.statusTodo === "both") {
-        return state.todos;
-      } else {
-        let checkCompleted = state.filter.statusTodo === "done" ? true : false;
-        return state.todos.filter((todo) => todo.completed === checkCompleted);
-      }
-    } else {
-      if (state.filter.statusTodo === "both") {
-        return state.todos.filter((todo) =>
+    let checkCompleted = state.filter.statusTodo === "done" ? true : false;
+    return state.filter.keyword === null
+      ? state.filter.statusTodo === "both"
+        ? state.todos
+        : state.todos.filter((todo) => todo.completed === checkCompleted)
+      : state.filter.statusTodo === "both"
+      ? state.todos.filter((todo) =>
           todo.title.toLowerCase().includes(state.filter.keyword.toLowerCase())
-        );
-      } else {
-        let checkCompleted = state.filter.statusTodo === "done" ? true : false;
-        return state.todos.filter(
+        )
+      : state.todos.filter(
           (todo) =>
             todo.title
               .toLowerCase()
               .includes(state.filter.keyword.toLowerCase()) &&
             todo.completed === checkCompleted
         );
-      }
-    }
   },
   getCurrentTodo(state) {
     return state.currentTodo;

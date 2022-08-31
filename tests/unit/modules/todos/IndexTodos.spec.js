@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import IndexTodos from "@/components/modules/todos/IndexTodos.vue";
 import Vuex from "vuex";
 import todos from "@/store/modules/todos.js";
-import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import { BootstrapVue } from "bootstrap-vue";
 describe("IndexTodos.vue testing :  ", () => {
   let store;
   let wrapper;
@@ -10,7 +10,6 @@ describe("IndexTodos.vue testing :  ", () => {
   beforeEach(async () => {
     localVue.use(Vuex);
     localVue.use(BootstrapVue);
-    localVue.use(BootstrapVueIcons);
     store = new Vuex.Store({
       modules: {
         todos: todos,
